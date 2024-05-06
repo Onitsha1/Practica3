@@ -9,7 +9,7 @@ public class App {
     public static void menuPrincipal(){
         String opcionLeida;
         int opcion =-1;
-        boolean fallo = true;
+        boolean error = true;
 
         do {
             try {
@@ -21,13 +21,13 @@ public class App {
             opcionLeida = lector.nextLine();
             opcion = Integer.parseInt(opcionLeida);
             if (opcion >=1 && opcion <=3){
-                fallo = false;    
+                error = false;    
             } else {
-                fallo = true;
+                error = true;
                 System.out.println("Esa opción no existe");
             }
             } catch (Exception e) {
-                fallo = true;
+                error = true;
                 System.out.println("Valor inválido");
                 lector.nextLine();
             }
@@ -41,7 +41,7 @@ public class App {
                 case 3:
                     break;
             }
-        } while (fallo || opcion !=3);
+        } while (error || opcion !=3);
         lector.close();
     }
 }

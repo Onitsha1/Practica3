@@ -38,7 +38,7 @@ public class Gestion {
 
     private static void menuSecundario(Usuario usuario){
 
-        boolean fallo2 = true;
+        boolean error = true;
         String opcionLeida2;
         int opcion2 = -1;
 
@@ -58,13 +58,13 @@ public class Gestion {
             opcion2 = Integer.parseInt(opcionLeida2);
 
             if (opcion2 >=1 && opcion2 <=7){
-                fallo2 = false;
+                error = false;
             } else {
-                fallo2 = true;
+                error = true;
                 System.out.println("Esa opción no existe");
             }
             } catch (Exception e) {
-                fallo2 = true;
+                error = true;
                 System.out.println("Valor inválido");
             }
             switch (opcion2) {
@@ -92,13 +92,13 @@ public class Gestion {
                     cerrarSesion(usuario); 
                     break;
             }
-        } while (fallo2 || opcion2 !=7);
+        } while (error || opcion2 !=7);
     }
 
-    public static void borrarCuenta(Usuario usuario){
+    private static void borrarCuenta(Usuario usuario){
 
         String confirmacionBorrado;
-        boolean error2 = true;
+        boolean error = true;
 
         System.out.println("-- Borrar usuario --");
         System.out.println("Escriba BORRAR para eliminar su cuenta: ");
@@ -106,7 +106,7 @@ public class Gestion {
 
         do {
             if (confirmacionBorrado.equals("BORRAR")){
-                error2 = false;
+                error = false;
                 listaUsuarios.remove(usuario);
                 System.out.println("Cuenta eliminada correctamente.");
                     for (Usuario usuariosAmigosBorrar : listaUsuarios){
@@ -116,10 +116,10 @@ public class Gestion {
                     }
                 App.menuPrincipal();
             } else {
-                error2 = true;
+                error = true;
             System.out.println("Valor inválido ");
          }
-        } while (error2);
+        } while (error);
     }
 
     public static void iniciarSesion(){
@@ -132,36 +132,40 @@ public class Gestion {
         System.out.println("Escriba su contraseña: ");
         contraseñaIntroducida = App.lector.nextLine();
 
-        for(Usuario usuario : listaUsuarios){
-            if(usuario.getCorreoElectronico().equals(correoElectronicoIntroducido) && usuario.getContraseña().equals(contraseñaIntroducida)){
-            System.out.println("Sesión iniciada correctamente");
-            menuSecundario(usuario);
+        if (existeUsuario(correoElectronicoIntroducido)){ 
+            for(Usuario usuario : listaUsuarios){
+                if(usuario.getCorreoElectronico().equals(correoElectronicoIntroducido) && usuario.getContraseña().equals(contraseñaIntroducida)){
+                System.out.println("Sesión iniciada correctamente");
+                menuSecundario(usuario);
+                }
             }
-        }
-            System.out.println("Esa cuenta no existe");
+            System.out.println("Contraseña o cuenta incorrecta");
+        } else {System.out.println("Esa cuenta no existe");
+        }    
+            
     }
 
     
-    public static void cerrarSesion(Usuario usuario){
+    private static void cerrarSesion(Usuario usuario){
 
         String confirmacionSalir;
-        boolean error3 = true;
+        boolean error = true;
 
         do {
             System.out.println("Escriba 'SALIR' para cerrar sesión y volver al menú principal: ");
             confirmacionSalir = App.lector.nextLine();
             if (confirmacionSalir.equals("SALIR")){
-                error3 = false;
+                error = false;
                 App.menuPrincipal();
 
             } else {
-                error3 = true;
+                error = true;
                 System.out.println("Valor inválido.");
             }
-        } while (error3);
+        } while (error);
 
     }
-    public static void enviarMensaje(Usuario usuario){
+    private static void enviarMensaje(Usuario usuario){
 
         String mensajeEnviar;
         String remitente = usuario.getCorreoElectronico();
@@ -185,7 +189,7 @@ public class Gestion {
             }
     }
 
-    public static void leerMensaje(Usuario usuario){
+    private static void leerMensaje(Usuario usuario){
 
         System.out.println("Mensajes recibidos: ");
         for (Mensaje mensaje : listaMensajes){
@@ -195,7 +199,7 @@ public class Gestion {
         }
     }
 
-    public static void agregarAmigo(Usuario usuario){
+    private static void agregarAmigo(Usuario usuario){
         String correoAmigoNuevo;
 
         System.out.println("Escriba el correo del amigo que quiere agregar: ");
@@ -213,7 +217,7 @@ public class Gestion {
         }
     }
 
-    public static void eliminarAmigo(Usuario usuario){
+    private static void eliminarAmigo(Usuario usuario){
 
         String amigoBorrar;
 
@@ -232,7 +236,7 @@ public class Gestion {
                 System.out.println("Ese usuario se encuentra en su lista de amigos");
     }
     
-    public static void listaAmigos(Usuario usuario){
+    private static void listaAmigos(Usuario usuario){
         System.out.println("-- Lista de amigos: ");
         for (Usuario amigo : usuario.getListaAmigos())
         System.out.println("- " + amigo.getCorreoElectronico());
