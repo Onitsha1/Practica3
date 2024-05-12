@@ -33,10 +33,10 @@ public class App {
             }
             switch (opcion) {
                 case 1:
-                   Gestion.crearUsuario(); 
+                   Usuario.crearUsuario(); 
                     break;
                 case 2:
-                   Gestion.iniciarSesion(); 
+                   Usuario.iniciarSesion(); 
                     break;
                 case 3:
                     break;
