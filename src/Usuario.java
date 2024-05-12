@@ -104,7 +104,7 @@ public class Usuario {
                     }
                 }
             }
-                System.out.println("Ese usuario se encuentra en su lista de amigos");
+                System.out.println("Ese usuario no se encuentra en su lista de amigos");
     }
 
     public static void borrarCuenta(Usuario usuario){
