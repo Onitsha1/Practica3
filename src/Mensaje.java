@@ -68,6 +68,7 @@ public class Mensaje {
         int idMensaje = -1;
         String mensajeRespuesta;
         boolean error = true;
+        
         leerMensaje(usuario);
         
         do {
